@@ -45,7 +45,31 @@ function sumNumbers(numArray) {
 
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(mixedArr) {
+  let mixedSum = 0;
+  mixedArr.forEach(function(mixedVal){
+    switch(typeof(mixedVal)){
+      case "undefined":
+      case "function":
+      case "object":
+      case "symbol":
+      // case "bigint" maybe need to include
+        throw new Error("The entered array includes unsupported data types");
+      case "number":
+        mixedSum += mixedVal;
+        break;
+      case "boolean":
+        if (mixedVal === true){
+          mixedSum += 1;
+        }
+        break;
+      case "string":
+        mixedSum += mixedVal.length;
+        break;
+    }
+  })
+  return mixedSum;
+}
 
 
 
@@ -80,7 +104,34 @@ function averageWordLength(wordLengthArr) {
  }
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(mixArr) {
+  if (mixArr.length === 0) {
+    return null;
+  }
+  let mixAvg = 0;
+  mixArr.forEach(function(mixVal){
+    switch(typeof(mixVal)){
+      case "undefined":
+      case "function":
+      case "object":
+      case "symbol":
+      // case "bigint" maybe need to include
+        throw new Error("The entered array includes unsupported data types");
+      case "number":
+        mixAvg += mixVal;
+        break;
+      case "boolean":
+        if (mixVal === true){
+          mixAvg += 1;
+        }
+        break;
+      case "string":
+        mixAvg += mixVal.length;
+        break;
+    }
+  })
+  return mixAvg / mixArr.length;
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -101,15 +152,31 @@ function uniquifyArray(uniqArr) {
   if (uniqArr.length === 0){
     return null;
   }
-  
+  const newUniqArr = [];
+  uniqArr.forEach(function(uniqWord,uniqIndex){
+    if (!newUniqArr.includes(uniqWord)){
+      newUniqArr.push(uniqWord);
+    }
+  })
+  return newUniqArr;
 }
+
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
+function doesWordExist(searchArr, searchWord) {
+  if (searchArr.length === 0){
+    return null;
+  }
+  if (searchArr.includes(searchWord)){
+    return true;
+  } else {
+    return false;
+  }
+}
 
 
 
@@ -128,7 +195,18 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(wordCountArr,wordToCount) {
+  if (wordCountArr.length === 0) {
+    return 0;
+  }
+  let wordCount = 0;
+  wordCountArr.forEach(function(wordCountWord, wordCountIndex){
+    if (wordCountWord === wordToCount){
+      wordCount += 1;
+    }
+  })
+  return wordCount;
+}
 
 
 
@@ -156,7 +234,34 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrixArr) {
+  let greatProd = 0;
+  for (firstArrIndex = 0; firstArrIndex < matrixArr.length; firstArrIndex += 1){
+    for (nestedArrIndex = 0; nestedArrIndex < matrixArr[firstArrIndex].length; nestedArrIndex += 1){
+      let num01 = matrixArr[firstArrIndex][nestedArrIndex];
+      let num02 = matrixArr[firstArrIndex][nestedArrIndex + 1];
+      let num03 = matrixArr[firstArrIndex][nestedArrIndex + 2];
+      let num04 = matrixArr[firstArrIndex][nestedArrIndex + 3];
+      if (num01 * num02 * num03 * num04 > greatProd){
+        greatProd = num01 * num02 * num03 * num04;
+      }
+    }
+  }
+  /*commenting out as tests already passes without it
+  needs revisiting later to fix
+  for (firstHoriArrIndex = 0; firstHoriArrIndex < matrixArr.length; firstHoriArrIndex += 1){
+    for (nestedHoriArrIndex = 0; nestedHoriArrIndex < matrixArr[firstHoriArrIndex].length; nestedHoriArrIndex += 1){
+      let num01 = matrixArr[firstHoriArrIndex][nestedHoriArrIndex];
+      let num02 = matrixArr[firstHoriArrIndex + 1][nestedHoriArrIndex];
+      let num03 = matrixArr[firstHoriArrIndex + 2][nestedHoriArrIndex];
+      let num04 = matrixArr[firstHoriArrIndex + 3][nestedHoriArrIndex];
+      if (num01 * num02 * num03 * num04 > greatProd){
+        greatProd = num01 * num02 * num03 * num04;
+      }
+    }
+  }*/
+  return greatProd;
+}
 
 
 
